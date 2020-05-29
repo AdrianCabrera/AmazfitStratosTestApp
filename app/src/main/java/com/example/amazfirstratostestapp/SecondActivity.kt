@@ -46,14 +46,7 @@ class SecondActivity : AppCompatActivity() {
 
     }
 
-
-    /** Called when the user taps the Send button */
-    private fun close() {
-        finish()
-    }
-
     private fun startMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        finish()
     }
 }
