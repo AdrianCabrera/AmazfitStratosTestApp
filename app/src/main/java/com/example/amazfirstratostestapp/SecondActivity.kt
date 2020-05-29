@@ -1,0 +1,59 @@
+package com.example.amazfirstratostestapp
+
+import android.content.Intent
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.Button
+
+
+class SecondActivity : AppCompatActivity() {
+
+    private lateinit var animFadein: Animation
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.second)
+
+        val button = findViewById<Button>(R.id.button2)
+
+        animFadein = AnimationUtils.loadAnimation(
+            applicationContext,
+            R.anim.fade_from_top)
+
+        button.startAnimation(animFadein)
+
+        animFadein.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationRepeat(animation: Animation?) {
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+
+                val message = intent.getStringExtra(EXTRA_MESSAGE)
+                button.apply {
+                    text = message
+                }
+                button.setOnClickListener { startMainActivity() }
+            }
+
+            override fun onAnimationStart(animation: Animation?) {
+                button.apply {
+                    text = "animating"
+                }
+            }
+        })
+
+    }
+
+
+    /** Called when the user taps the Send button */
+    private fun close() {
+        finish()
+    }
+
+    private fun startMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+}
